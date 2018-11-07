@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pigpio.h>
+#include <wiringPi.h>
+
+#define ENA 25
+#define ENB 17
+#define IN1 27
+#define IN2 18
+#define IN3 23
+#define IN4 24
+
+
+//gcc -Wall -pthread -o kyotest kyotest.c -lwiringPi -lpigpio -lrt
+//=build command
+
+int main()
+{
+
+	if(wiringPiSetup() == -1) return 1;
+	if(gpioInitialise()<0) return -1; 
+
+        pinMode(IN1, OUTPUT);
+        pinMode(IN2, OUTPUT);
+        pinMode(IN3, OUTPUT);
+        pinMode(IN4, OUTPUT);
+
+		gpioSetMode(ENA,PI_OUTPUT);
+		gpioSetMode(ENA,PI_OUTPUT);		
+		gpioSetPWMfrequency(ENA,40);
+		gpioSetPWMfrequency(ENA,40);
+		gpioSetPWMrange(ENA,4000);
+		gpioSetPWMrange(ENA,4000);		
+		time_sleep(1);
+        digitalWrite(IN1, 1);
+        digitalWrite(IN2, 0);
+        digitalWrite(IN3, 1);
+        digitalWrite(IN4, 0);
+		while(1)
+		{
+		gpioPWM(ENA, 4000);
+		gpioPWM(ENB, 4000);
+		time_sleep(3);
+		gpioPWM(ENA,2000);
+		gpioPWM(ENA,2000);
+		time_sleep(3);
+		gpioPWM(ENA,500);
+		gpioPWM(ENA,500);
+		time_sleep(3);
+		}
+
+return 0;
+
+}
