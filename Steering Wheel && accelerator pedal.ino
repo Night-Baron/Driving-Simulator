@@ -22,7 +22,7 @@ int P_lastPos = -1;
 void setup() {
   //Serial print
   Serial.begin(9600);
-  Serial.println(F("Test Start"));
+  Serial.println(F("Start"));
   //nrf24l01 setup
   radio.begin();
   radio.setRetries(15, 15);
@@ -51,10 +51,10 @@ void loop() {
   
   //Rotary Encoder positioning
     int R_newPos = encoder.getPosition() * ROTARYSTEPS;
-   if (R_newPos < ROTARYMIN) {
+   if (R_newPos < ROTARYMIN) {                        // position < 180
     encoder.setPosition(ROTARYMIN / ROTARYSTEPS);
     R_newPos = ROTARYMIN;
-    } else if (R_newPos > ROTARYMAX) {
+    } else if (R_newPos > ROTARYMAX) {                // position > 0
     encoder.setPosition(ROTARYMAX / ROTARYSTEPS);
     R_newPos = ROTARYMAX;
     }
